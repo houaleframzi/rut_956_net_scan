@@ -1,6 +1,7 @@
 #!/bin/sh
 
 echo >> ip_log.txt | echo > ip_log.txt
+echo >> netscan_log.txt | echo > netscan_log.txt
 
 
 for NETWORK in 1 8 254
