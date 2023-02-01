@@ -1,0 +1,62 @@
+#!/bin/sh
+
+echo >> ip_log.txt | echo > ip_log.txt
+
+
+for NETWORK in 1 8 254
+do
+arp-scan -xqg 192.168.$NETWORK.0/24 >> netscan_log.txt
+done
+
+ips="$(awk '{print $1}' netscan_log.txt)" 
+echo $ips > ip_log.txt
+ip1="$(awk '{print $1}' ip_log.txt)"
+ip2="$(awk '{print $2}' ip_log.txt)"
+ip3="$(awk '{print $3}' ip_log.txt)"
+ip4="$(awk '{print $4}' ip_log.txt)"
+ip5="$(awk '{print $5}' ip_log.txt)"
+ip6="$(awk '{print $6}' ip_log.txt)"
+ip7="$(awk '{print $7}' ip_log.txt)"
+ip8="$(awk '{print $8}' ip_log.txt)"
+
+
+echo "Content-type: text/html"
+echo
+cat <<EOT 
+<!DOCTYPE html>
+    <html>
+
+    <head>
+        <title>
+            EVERCAM NetScanner
+        </title>
+    </head>
+
+    <body>
+
+            
+        <center>
+            <h2>EVERCAM NetScanner</h2><br>
+            <table border="4" align="center" width="583px">
+                <tr>
+                    
+                    <td align="center" width="132px">    IP1    </td>
+                    <td align="center" width="132px">    IP2    </td>
+                    <td align="center" width="132px">    IP3    </td>
+                    <td align="center" width="132px">    IP4    </td>
+                </tr>
+                <tr>
+                    
+                    <td align="center">$ip1</td>
+                    <td align="center">$ip2</td>
+                    <td align="center">$ip3</td>
+                    <td align="center">$ip4</td>
+                </tr>
+                
+            </table><br>
+            
+        </center>
+    </body>
+
+    </html>
+EOT
